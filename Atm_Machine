@@ -1,0 +1,296 @@
+package practice;
+import java.util.*;
+import java.text.*;
+class Account
+{
+	Scanner op1=new Scanner(System.in);
+	DecimalFormat op4=new DecimalFormat("##,###0.00 'Rupee'");
+	DecimalFormat op5=new DecimalFormat("##,###0.00 'Dollar'");
+	
+	private int CN;
+	private int pn;
+	double CB=2000;
+	double SB=1000;
+	
+	void setCustomerNumber(int cn)
+	{
+		CN=cn;
+	}
+	void setPINNumber(int pn)
+	{
+		this.pn=pn;
+	}
+	int getCN()
+	{
+		return CN;
+	}
+	int getPN()
+	{
+		return pn;
+	}
+	void getCurrentBalance()
+	{
+		System.out.println("Your Current Account Balance : "+op4.format(CB));
+	}
+	void getSavingBalance()
+	{
+		System.out.println("Your Saving Account Balance : "+op5.format(SB));
+	}
+	void getCurrentWithdrawInput()
+	{
+		System.out.println("Your Current Account Balance : "+op4.format(CB));
+		System.out.println("Enter the ammount you want to withdraw");
+		double ammount=op1.nextDouble();
+		if((CB-ammount)>=0)
+		{
+           calcCurrentWithdraw(ammount);
+           System.out.println("Your Current Account Balance :" +op4.format(CB));
+		}
+		else
+		{
+			System.out.println("Insufficient Balance");
+		}
+	}
+	void getCurrentDepositeMoney()
+	{
+		System.out.println("Your Current Account Balance : "+op4.format(CB));
+		System.out.println("Enter the ammount you want to deposite");
+		double ammount=op1.nextDouble();
+		if((CB+ammount)>=0)
+		{
+           calcCurrentDeposite(ammount);
+           System.out.println("Your Current Account Balance :" +op4.format(CB));
+		}
+		else
+		{
+		
+		}
+	}
+	void getSavingWithdrawInput()
+	{
+		System.out.println("Your Saving Account Balance : "+op5.format(SB));
+		System.out.println("Enter the ammount you want to withdraw");
+		double ammount=op1.nextDouble();
+		if((SB-ammount)>=0)
+		{
+           calcSavingWithdraw(ammount);
+           System.out.println("Your Saving Account Balance :" +op5.format(SB));
+		}
+		else
+		{
+			System.out.println("Insufficient Balance");
+		}
+	}
+	void getSavingDepositeMoney()
+	{
+		System.out.println("Your Saving Account Balance : "+op5.format(SB));
+		System.out.println("Enter the ammount you want to deposite");
+		double ammount=op1.nextDouble();
+		if((SB+ammount)>=0)
+		{
+           calcSavingDeposite(ammount);
+           System.out.println("Your Saving Account Balance :" +op5.format(SB));
+		}
+		else
+		{
+		
+		}
+	}
+
+	double calcCurrentWithdraw(double am)
+	{
+		CB=CB-am;
+		return CB;
+	}
+	double calcCurrentDeposite(double dp)
+	{
+		CB=CB+dp;
+		return CB;
+	}
+	double calcSavingWithdraw(double am)
+	{
+		SB=SB-am;
+		return SB;
+	}
+	double calcSavingDeposite(double am)
+	{
+		SB=SB+am;
+		return SB;
+	}
+	
+	
+}
+class OptionMenu extends Account
+{
+	Scanner op1=new Scanner(System.in); 
+	HashMap<Integer,Integer> op3=new HashMap();
+	DecimalFormat op4=new DecimalFormat("##,###0.00 'Rupee'");
+	DecimalFormat op5=new DecimalFormat("##,###0.00 'Dollar'");
+	void getLogin()
+	{	
+		int i=1;
+		do
+		{
+			try
+			{
+				op3.put(11111,111);
+				op3.put(11112,222);
+				op3.put(11113,333);
+				op3.put(11114,444);
+				op3.put(11115,111);
+				
+				System.out.println("Welcome");
+				System.out.println("Enter the Customer Number");
+				setCustomerNumber(op1.nextInt());
+				System.out.println("Enter the PIN Number");
+				setPINNumber(op1.nextInt());
+				
+				int A=getCN();
+				int B=getPN();
+				
+				if(op3.containsKey(A) && op3.get(A)==B)
+				{
+					getAccountType();
+				}
+				else
+				{
+					System.out.println("Invalid Id or Password");
+				}
+			}
+			catch(InputMismatchException e)
+			{
+				System.out.println("Enter Numbers only");
+				System.out.println("C & S r not allowed");
+				i=2;
+			}
+		}
+		while( i==1);
+	}
+	void getAccountType()
+	{
+		System.out.println("Enter Account Type You Want To Access");
+		System.out.println("Choice 1 : Current Account");
+		System.out.println("Choice 2 : Saving Account");
+		System.out.println("Choice 3 : Exit");
+		System.out.print("Choice 4: ");
+		int ch=op1.nextInt();
+		switch(ch)
+		{
+			case 1 :
+				getCurrent();
+				getAccountType();
+				break;
+				
+			case 2 :
+				getSaving();
+				getAccountType();
+				break;
+			case 3 :
+				System.out.println("Thank You For Visiting");
+				System.out.println("VISIT AGAIN");
+				break;
+			default :
+				System.out.println("Invalid Choice");
+				getAccountType();
+				break;
+		}
+	}
+	void getCurrent()
+	{
+		System.out.println("CURRENT ACCOUNT");
+		System.out.println("Choice 1 : Balance Enquiry");
+		System.out.println("Choice 2 : Withdraw Money");
+		System.out.println("Choice 3 : Deposit Money");
+		System.out.println("Choice 4 : Exit");
+		int ch=op1.nextInt();
+		switch(ch)
+		{
+		case 1 :
+			getCurrentBalance();
+			getAccountType();
+			break;
+		case 2 :
+			getCurrentWithdrawInput();
+			getAccountType();
+			break;
+		case 3 :
+			getCurrentDepositeMoney();
+			getAccountType();
+			break;
+		case 4 :
+			System.out.println("Thank You For Visiting");
+			System.out.println("VISIT AGAIN");
+			break;	
+		default :
+			System.out.println("Invalid Choice");
+			getAccountType();
+			break;
+		}
+		
+	}
+	void getSaving()
+	{
+		System.out.println("SAVINGS ACCOUNT");
+		System.out.println("Choice 1 : Balance Enquiry");
+		System.out.println("Choice 2 : Withdraw Money");
+		System.out.println("Choice 3 : Deposit Money");
+		System.out.println("Choice 4 : Exit");
+		int ch=op1.nextInt();
+		switch(ch)
+		{
+		case 1 :
+			getSavingBalance();
+			getAccountType();
+			break;
+		case 2 :
+			getSavingWithdrawInput();
+			getAccountType();
+			break;
+		case 3 :
+			getSavingDepositeMoney();
+			getAccountType();
+			break;
+		case 4 :
+			System.out.println("Thank You For Visiting");
+			System.out.println("VISIT AGAIN");
+			break;	
+		default :
+			System.out.println("Invalid Choice");
+			getAccountType();
+			break;
+		}
+	}
+}
+public class ATM extends OptionMenu
+{
+	public static void main(String[] args)
+	{
+		OptionMenu op=new OptionMenu();
+		op.getLogin();
+    }
+}
+
+    
+/*
+ * 1.ATM         1.main method
+ * 2.OptionMenu  2.getLogin
+ *               3.getAccountType
+ *               4.getCurrent
+ *               5.getSaving
+ * 3.Account     6.setCustomerNumber
+ *               7.setPINNumber
+ *               8.getCustomerNumber
+ *               9.getPINNumber
+ *               10.getCurrentBalance
+ *               11.getSavingBalance
+ *               12.getCurrentWithdrawInput
+ *               13.calciCurrentWithdraw 
+ *               14.getSavingtWithdrawInput
+ *               15.calciSavingWithdraw  
+ *               16.getCurrentDepositeInput
+ *               17.calciCurrentDeposite 
+ *               18.getSavingtDepositeInput
+ *               19.calciSavingDeposite       
+ */
+// {} , () ,[] , <>
+
